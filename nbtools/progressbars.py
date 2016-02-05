@@ -14,7 +14,7 @@ def progress_display(results, objectlist, sleep=10):
         time.sleep(sleep)
 
 
-def nb_progress_display(results, objectlist, sleep=1):
+def multiprocess_progress_display(results, objectlist, sleep=1):
     prog = IntProgress(min=0, max=len(list(objectlist)))
     display(prog)
     while not results.ready():
@@ -22,12 +22,33 @@ def nb_progress_display(results, objectlist, sleep=1):
         time.sleep(sleep)
 
 
-def int_progress(min_, max_):
-    prog = IntProgress(min=min_, max=max_)
-    display(prog)
-    for i in linspace(min_, max_, 25):
-        time.sleep(0.1)
-        prog.value = i
+class ListProgressBar(object):
+    def __init__(self, objectlist, min_=0):
+        self.list = objectlist
+        self.prog = IntProgress(min=min_, max=len(objectlist)-1)
+        display(self.prog)
+
+    @property
+    def value(self):
+        return self.prog.value
+
+    @value.setter
+    def value(self, newvalue):
+        self.prog.value = self.list.index(newvalue)
+
+
+class IntProgressBar(object):
+    def __init__(self, objectlist, min_=0):
+        self.prog = IntProgress(min=min_, max=len(objectlist)-1)
+        display(self.prog)
+
+    @property
+    def value(self):
+        return self.prog.value
+
+    @value.setter
+    def value(self, newvalue):
+        self.prog.value = newvalue
 
 
 def float_progress(min_, max_):
