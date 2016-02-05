@@ -1,3 +1,4 @@
+"""Multiprocessing related Jupyter notebook tools."""
 import sys
 import time
 
