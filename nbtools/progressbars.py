@@ -14,7 +14,7 @@ def progress_display(results, objectlist, sleep=10):
         time.sleep(sleep)
 
 
-def multiprocess_progress_display(results, objectlist, sleep=1):
+def display_multi_progress(results, objectlist, sleep=1):
     prog = IntProgress(min=0, max=len(list(objectlist)))
     display(prog)
     while not results.ready():
