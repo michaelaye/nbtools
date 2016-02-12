@@ -9,13 +9,13 @@ from numpy import linspace
 
 def progress_display(results, objectlist, sleep=10):
     while not results.ready():
-        print("{:.1f} % done.".format(100*results.progress/len(objectlist)))
+        print("{:.1f} % done.".format(100*results.progress/len(list(objectlist))))
         sys.stdout.flush()
         time.sleep(sleep)
 
 
 def display_multi_progress(results, objectlist, sleep=1):
-    prog = IntProgress(min=0, max=len(list(objectlist)))
+    prog = IntProgress(min=0, max=len(list(objectlist))-1)
     display(prog)
     while not results.ready():
         prog.value = results.progress
@@ -25,7 +25,7 @@ def display_multi_progress(results, objectlist, sleep=1):
 class ListProgressBar(object):
     def __init__(self, objectlist, min_=0):
         self.list = objectlist
-        self.prog = IntProgress(min=min_, max=len(objectlist)-1)
+        self.prog = IntProgress(min=min_, max=len(list(objectlist))-1)
         display(self.prog)
 
     @property
@@ -39,7 +39,7 @@ class ListProgressBar(object):
 
 class IntProgressBar(object):
     def __init__(self, objectlist, min_=0):
-        self.prog = IntProgress(min=min_, max=len(objectlist)-1)
+        self.prog = IntProgress(min=min_, max=len(list(objectlist))-1)
         display(self.prog)
 
     @property
